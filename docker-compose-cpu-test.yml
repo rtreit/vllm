@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  vllm-cpu:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.cpu
+      target: vllm-dev
+    volumes:
+      - ./:/workspace/vllm
+    command: >
+      bash -c "cd /workspace/vllm && 
+               pip install -e . &&
+               python test_codex_embed_cpu.py --model hf-internal-testing/tiny-random-GemmaForCausalLM &&
+               python test_codex_embed_comprehensive.py --model hf-internal-testing/tiny-random-GemmaForCausalLM"
+    environment:
+      - PYTHONPATH=/workspace/vllm

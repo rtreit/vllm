@@ -1,0 +1,52 @@
+# Kubernetes deployment file for testing CodeXEmbedModel2B with vLLM
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vllm-codex-embed-test
+  labels:
+    app: vllm-codex-embed-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vllm-codex-embed-test
+  template:
+    metadata:
+      labels:
+        app: vllm-codex-embed-test
+    spec:
+      containers:
+      - name: vllm
+        image: vllm-gpu-test:latest  # You'll need to build and push this image
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            nvidia.com/gpu: 1  # Request 1 GPU
+          requests:
+            memory: "16Gi"
+            cpu: "4"
+        ports:
+        - containerPort: 8000
+        command: ["python", "-m", "vllm.entrypoints.openai.api_server"]
+        args:
+        - "--model=SFR/SFR-Embedding-Code-2B_R"
+        - "--task=embed"
+        - "--host=0.0.0.0"
+        - "--port=8000"
+        env:
+        - name: CUDA_VISIBLE_DEVICES
+          value: "0"
+      nodeSelector:
+        accelerator: nvidia-gpu  # Adjust based on your k8s node labels
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vllm-codex-embed-service
+spec:
+  selector:
+    app: vllm-codex-embed-test
+  ports:
+  - port: 8000
+    targetPort: 8000
+  type: ClusterIP

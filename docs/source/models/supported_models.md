@@ -1234,6 +1234,12 @@ The following table lists those that are tested in vLLM.
   * Example HF Models
   * [LoRA](#lora-adapter)
   * [PP](#distributed-serving)
+- * `CodeXEmbedModel2B`
+  * SFR-Embedding-Code
+  * T
+  * `SFR/SFR-Embedding-Code-2B_R`
+  * ✅︎
+  * ✅︎
 - * `LlavaNextForConditionalGeneration`
   * LLaVA-NeXT-based
   * T / I

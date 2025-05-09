@@ -1,0 +1,35 @@
+FROM vllm/vllm:latest
+
+WORKDIR /app
+
+# Copy your implementation and model test files
+COPY vllm/model_executor/models/codex_embed.py /opt/conda/lib/python3.11/site-packages/vllm/model_executor/models/
+COPY vllm/model_executor/models/registry.py /opt/conda/lib/python3.11/site-packages/vllm/model_executor/models/
+COPY tests/models/test_codex_embed.py /opt/conda/lib/python3.11/site-packages/vllm/tests/models/
+COPY tests/models/registry.py /opt/conda/lib/python3.11/site-packages/vllm/tests/models/
+
+# Copy test script
+COPY test_codex_embed_cpu.py /app/
+
+# Create a simple client test script
+RUN echo '#!/usr/bin/env python3\n\
+import openai\n\
+\n\
+client = openai.Client(base_url="http://localhost:8000/v1", api_key="dummy")\n\
+\n\
+# Test code snippets\n\
+code_snippets = [\n\
+    "def hello_world():\\n    print(\"Hello, world!\")",\n\
+    "function greet() {\\n    console.log(\"Hello, world!\");\\n}"\n\
+]\n\
+\n\
+# Create embeddings\n\
+response = client.embeddings.create(input=code_snippets, model="SFR/SFR-Embedding-Code-2B_R")\n\
+\n\
+# Print information about the embeddings\n\
+print(f"Embedding dimensions: {len(response.data[0].embedding)}")\n\
+print(f"First 5 values of embedding 1: {response.data[0].embedding[:5]}")\n\
+print(f"First 5 values of embedding 2: {response.data[1].embedding[:5]}")\n' > /app/test_api_client.py && chmod +x /app/test_api_client.py
+
+# Set the default command to start the OpenAI-compatible API server
+CMD ["python", "-m", "vllm.entrypoints.openai.api_server", "--model", "SFR/SFR-Embedding-Code-2B_R", "--task", "embed"]

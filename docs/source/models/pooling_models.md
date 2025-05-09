@@ -8,6 +8,8 @@ In vLLM, pooling models implement the {class}`~vllm.model_executor.models.VllmMo
 These models use a {class}`~vllm.model_executor.layers.Pooler` to extract the final hidden states of the input
 before returning them.
 
+We provide specialized models for embedding tasks such as the [CodeXEmbedModel2B](codex_embed.md) model, which is optimized for code embedding tasks.
+
 :::{note}
 We currently support pooling models primarily as a matter of convenience.
 As shown in the [Compatibility Matrix](#compatibility-matrix), most vLLM features are not applicable to
