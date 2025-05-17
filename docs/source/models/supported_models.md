@@ -718,8 +718,12 @@ Specified using `--task embed`.
 - * `NomicBertModel`
   * Nomic BERT
   * `nomic-ai/nomic-embed-text-v1`, `nomic-ai/nomic-embed-text-v2-moe`, `Snowflake/snowflake-arctic-embed-m-long`, etc.
-  * ︎
-  * ︎
+  *
+- * `CodeXEmbedModel2B`
+  * CodeXEmbed
+  * `Salesforce/SFR-Embedding-Code-2B_R`
+  *
+  *
 - * `LlamaModel`, `LlamaForCausalLM`, `MistralModel`, etc.
   * Llama-based
   * `intfloat/e5-mistral-7b-instruct`, etc.

@@ -140,6 +140,7 @@ _EMBEDDING_MODELS = {
     "MistralModel": ("llama", "LlamaForCausalLM"),
     "ModernBertModel": ("modernbert", "ModernBertModel"),
     "NomicBertModel": ("bert_with_rope", "NomicBertModel"),
+    "CodeXEmbedModel2B": ("transformers", "TransformersForCausalLM"),
     "Phi3ForCausalLM": ("phi3", "Phi3ForCausalLM"),
     "Qwen2Model": ("qwen2", "Qwen2EmbeddingModel"),
     "Qwen2ForCausalLM": ("qwen2", "Qwen2ForCausalLM"),

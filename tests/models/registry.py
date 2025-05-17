@@ -269,6 +269,10 @@ _EMBEDDING_EXAMPLE_MODELS = {
                                 trust_remote_code=True),
     "NomicBertModel": _HfExamplesInfo("Snowflake/snowflake-arctic-embed-m-long",  # noqa: E501
                                                trust_remote_code=True),
+    "CodeXEmbedModel2B": _HfExamplesInfo(
+        "Salesforce/SFR-Embedding-Code-2B_R",
+        trust_remote_code=True,
+    ),
     "Qwen2Model": _HfExamplesInfo("ssmits/Qwen2-7B-Instruct-embed-base"),
     "Qwen2ForRewardModel": _HfExamplesInfo("Qwen/Qwen2.5-Math-RM-72B"),
     "Qwen2ForProcessRewardModel": _HfExamplesInfo("Qwen/Qwen2.5-Math-PRM-7B"),
